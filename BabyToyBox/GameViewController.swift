@@ -1,22 +1,20 @@
-//
-//  GameViewController.swift
-//  BabyToyBox
-//
-//  Created by taiki.ogasawara on 2016/01/21.
-//  Copyright (c) 2016年 ogataiki. All rights reserved.
-//
-
 import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
 
+    @IBOutlet weak var BackImageView: UIImageView!
+    @IBOutlet weak var GameView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if let scene = GameScene(fileNamed:"GameScene") {
+            
+            BackImageView.image = UIImage(named: "Bg\(1 + arc4random() % 9)");
+
             // Configure the view.
-            let skView = self.view as! SKView
+            let skView = GameView as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
             
@@ -24,12 +22,15 @@ class GameViewController: UIViewController {
             skView.ignoresSiblingOrder = true
             
             /* Set the scale mode to scale to fit the window */
-            scene.scaleMode = .AspectFill
+            //scene.scaleMode = .AspectFill
             
+            skView.backgroundColor = UIColor.clearColor();
+            skView.allowsTransparency = true;
+
             skView.presentScene(scene)
         }
     }
-
+    
     override func shouldAutorotate() -> Bool {
         return true
     }

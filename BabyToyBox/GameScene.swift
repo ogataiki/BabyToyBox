@@ -1,22 +1,55 @@
-//
-//  GameScene.swift
-//  BabyToyBox
-//
-//  Created by taiki.ogasawara on 2016/01/21.
-//  Copyright (c) 2016年 ogataiki. All rights reserved.
-//
-
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate  {
+
+    struct TOY_PROBABILITY
+    {
+        var probability: Int;
+        var img_name: String;
+    }
+    var toy_probability: [TOY_PROBABILITY] = [
+        TOY_PROBABILITY(probability: 100, img_name: "Toy1"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy2"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy3"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy4"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy5"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy6"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy7"),
+        TOY_PROBABILITY(probability:  10, img_name: "Toy8"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy9"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy10"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy11"),
+        TOY_PROBABILITY(probability: 100, img_name: "Toy12"),
+    ];
+    var toy_probability_total: Int = 0;
+    
+    var gameFrame = CGRectZero;
+
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!"
-        myLabel.fontSize = 45
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
         
-        self.addChild(myLabel)
+        self.backgroundColor = UIColor.clearColor();
+        
+        for p in toy_probability {
+            toy_probability_total += p.probability;
+        }
+        
+        self.physicsWorld.contactDelegate = self;
+        
+        gameFrame = self.frame;
+        
+        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: gameFrame);
+    }
+    
+    func toyLottery() -> String {
+        var total: Int = 0;
+        let tmp: Int = 1 + Int(arc4random()) % toy_probability_total;
+        for p in toy_probability {
+            total += p.probability;
+            if(tmp <= total) {
+                return p.img_name;
+            }
+        }
+        return "Toy1"
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -25,16 +58,8 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.locationInNode(self)
             
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
+            let sprite = SKSpriteNode(imageNamed:toyLottery())
+            sprite.position = location            
             self.addChild(sprite)
         }
     }
