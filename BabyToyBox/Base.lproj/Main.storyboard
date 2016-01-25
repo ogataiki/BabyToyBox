@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
@@ -17,16 +16,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nfg-RS-o8S">
+                            <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nfg-RS-o8S">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bcg-U7-jgP" userLabel="GameView" customClass="SKView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bcg-U7-jgP" userLabel="GameView" customClass="SKView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="Bcg-U7-jgP" secondAttribute="bottom" id="3i8-6E-Mxe"/>
+                            <constraint firstItem="nfg-RS-o8S" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" id="HWT-Di-0mK"/>
+                            <constraint firstAttribute="trailing" secondItem="Bcg-U7-jgP" secondAttribute="trailing" id="SPZ-9x-QfI"/>
+                            <constraint firstItem="qHh-Mt-9TT" firstAttribute="top" secondItem="nfg-RS-o8S" secondAttribute="bottom" id="SdB-qt-N1G"/>
+                            <constraint firstItem="nfg-RS-o8S" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" id="Slu-MV-LyQ"/>
+                            <constraint firstItem="Bcg-U7-jgP" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" id="aze-xf-DNV"/>
+                            <constraint firstAttribute="trailing" secondItem="nfg-RS-o8S" secondAttribute="trailing" id="iqK-aj-zMM"/>
+                            <constraint firstItem="Bcg-U7-jgP" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" id="usb-rT-4FE"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="BackImageView" destination="nfg-RS-o8S" id="vy1-6D-QmH"/>

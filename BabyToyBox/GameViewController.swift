@@ -21,12 +21,15 @@ class GameViewController: UIViewController {
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
             
-            /* Set the scale mode to scale to fit the window */
-            //scene.scaleMode = .AspectFill
-            
             skView.backgroundColor = UIColor.clearColor();
             skView.allowsTransparency = true;
+            
+            skView.multipleTouchEnabled = true;
 
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            scene.size = skView.frame.size;
+            
             skView.presentScene(scene)
         }
     }
