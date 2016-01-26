@@ -28,6 +28,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     var touchDic: [UITouch:Toy] = [:];
     
     var gameFrame = CGRectZero;
+    
+    var updateFrame: UInt64 = 0;
 
     override func didMoveToView(view: SKView) {
         
@@ -146,7 +148,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
             case .copy:
                 
-                if(0 == (Int(arc4random()) % 3)) {
+                if 0 == updateFrame % 3 {
                     let copy = createToy(toy);
                     copy.position = toyPos;
                     
@@ -176,7 +178,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
                 let xdis = s.x-e.x;
                 let ydis = s.y-e.y;
                 
-                toy!.physicsBody?.applyForce(CGVectorMake(xdis*3, ydis*3));
+                let amplify = 3.0 + CGFloat(arc4random() % 5);
+                toy!.physicsBody?.applyForce(CGVectorMake(xdis*amplify, ydis*amplify));
                 
                 toy!.create_date = NSDate();
                 
@@ -194,6 +197,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
+        
+        updateFrame++;
         
         let now = NSDate();
 
