@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5061691F1C5A05DA009A2805 /* ToyExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5061691D1C5A05DA009A2805 /* ToyExplosion.sks */; };
+		506169201C5A05DA009A2805 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 5061691E1C5A05DA009A2805 /* spark.png */; };
+		5061692C1C5A0D1C009A2805 /* cat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 506169221C5A0D1C009A2805 /* cat.caf */; };
+		5061692D1C5A0D1C009A2805 /* chicken.caf in Resources */ = {isa = PBXBuildFile; fileRef = 506169231C5A0D1C009A2805 /* chicken.caf */; };
+		5061692E1C5A0D1C009A2805 /* crow.caf in Resources */ = {isa = PBXBuildFile; fileRef = 506169241C5A0D1C009A2805 /* crow.caf */; };
+		5061692F1C5A0D1C009A2805 /* dog.caf in Resources */ = {isa = PBXBuildFile; fileRef = 506169251C5A0D1C009A2805 /* dog.caf */; };
+		506169301C5A0D1C009A2805 /* explosion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 506169261C5A0D1C009A2805 /* explosion.caf */; };
+		506169311C5A0D1C009A2805 /* goat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 506169271C5A0D1C009A2805 /* goat.caf */; };
+		506169321C5A0D1C009A2805 /* powerup.caf in Resources */ = {isa = PBXBuildFile; fileRef = 506169281C5A0D1C009A2805 /* powerup.caf */; };
+		506169331C5A0D1C009A2805 /* sealion.caf in Resources */ = {isa = PBXBuildFile; fileRef = 506169291C5A0D1C009A2805 /* sealion.caf */; };
+		506169341C5A0D1C009A2805 /* sheep.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5061692A1C5A0D1C009A2805 /* sheep.caf */; };
+		506169351C5A0D1C009A2805 /* uguis.caf in Resources */ = {isa = PBXBuildFile; fileRef = 5061692B1C5A0D1C009A2805 /* uguis.caf */; };
 		508891D41C50638E003394BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508891D31C50638E003394BA /* AppDelegate.swift */; };
 		508891D61C50638E003394BA /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 508891D51C50638E003394BA /* GameScene.sks */; };
 		508891D81C50638E003394BA /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508891D71C50638E003394BA /* GameScene.swift */; };
@@ -37,6 +49,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5061691D1C5A05DA009A2805 /* ToyExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ToyExplosion.sks; sourceTree = "<group>"; };
+		5061691E1C5A05DA009A2805 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		506169221C5A0D1C009A2805 /* cat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = cat.caf; sourceTree = "<group>"; };
+		506169231C5A0D1C009A2805 /* chicken.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = chicken.caf; sourceTree = "<group>"; };
+		506169241C5A0D1C009A2805 /* crow.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = crow.caf; sourceTree = "<group>"; };
+		506169251C5A0D1C009A2805 /* dog.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = dog.caf; sourceTree = "<group>"; };
+		506169261C5A0D1C009A2805 /* explosion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = explosion.caf; sourceTree = "<group>"; };
+		506169271C5A0D1C009A2805 /* goat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = goat.caf; sourceTree = "<group>"; };
+		506169281C5A0D1C009A2805 /* powerup.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = powerup.caf; sourceTree = "<group>"; };
+		506169291C5A0D1C009A2805 /* sealion.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sealion.caf; sourceTree = "<group>"; };
+		5061692A1C5A0D1C009A2805 /* sheep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sheep.caf; sourceTree = "<group>"; };
+		5061692B1C5A0D1C009A2805 /* uguis.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = uguis.caf; sourceTree = "<group>"; };
 		508891D01C50638E003394BA /* BabyToyBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyToyBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		508891D31C50638E003394BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		508891D51C50638E003394BA /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -80,6 +104,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		506169211C5A0D1C009A2805 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				506169221C5A0D1C009A2805 /* cat.caf */,
+				506169231C5A0D1C009A2805 /* chicken.caf */,
+				506169241C5A0D1C009A2805 /* crow.caf */,
+				506169251C5A0D1C009A2805 /* dog.caf */,
+				506169261C5A0D1C009A2805 /* explosion.caf */,
+				506169271C5A0D1C009A2805 /* goat.caf */,
+				506169281C5A0D1C009A2805 /* powerup.caf */,
+				506169291C5A0D1C009A2805 /* sealion.caf */,
+				5061692A1C5A0D1C009A2805 /* sheep.caf */,
+				5061692B1C5A0D1C009A2805 /* uguis.caf */,
+			);
+			path = Sound;
+			sourceTree = "<group>";
+		};
 		508891C71C50638E003394BA = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +144,7 @@
 		508891D21C50638E003394BA /* BabyToyBox */ = {
 			isa = PBXGroup;
 			children = (
+				506169211C5A0D1C009A2805 /* Sound */,
 				508891D31C50638E003394BA /* AppDelegate.swift */,
 				508891D51C50638E003394BA /* GameScene.sks */,
 				508891D71C50638E003394BA /* GameScene.swift */,
@@ -112,6 +154,8 @@
 				508891DE1C50638F003394BA /* Assets.xcassets */,
 				508891E01C50638F003394BA /* LaunchScreen.storyboard */,
 				508891E31C50638F003394BA /* Info.plist */,
+				5061691D1C5A05DA009A2805 /* ToyExplosion.sks */,
+				5061691E1C5A05DA009A2805 /* spark.png */,
 			);
 			path = BabyToyBox;
 			sourceTree = "<group>";
@@ -238,10 +282,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5061692E1C5A0D1C009A2805 /* crow.caf in Resources */,
+				5061692D1C5A0D1C009A2805 /* chicken.caf in Resources */,
 				508891D61C50638E003394BA /* GameScene.sks in Resources */,
+				506169311C5A0D1C009A2805 /* goat.caf in Resources */,
+				5061692C1C5A0D1C009A2805 /* cat.caf in Resources */,
+				506169301C5A0D1C009A2805 /* explosion.caf in Resources */,
+				506169331C5A0D1C009A2805 /* sealion.caf in Resources */,
+				506169201C5A05DA009A2805 /* spark.png in Resources */,
+				5061692F1C5A0D1C009A2805 /* dog.caf in Resources */,
 				508891E21C50638F003394BA /* LaunchScreen.storyboard in Resources */,
+				5061691F1C5A05DA009A2805 /* ToyExplosion.sks in Resources */,
 				508891DF1C50638F003394BA /* Assets.xcassets in Resources */,
 				508891DD1C50638E003394BA /* Main.storyboard in Resources */,
+				506169341C5A0D1C009A2805 /* sheep.caf in Resources */,
+				506169351C5A0D1C009A2805 /* uguis.caf in Resources */,
+				506169321C5A0D1C009A2805 /* powerup.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

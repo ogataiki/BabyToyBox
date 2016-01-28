@@ -3,6 +3,10 @@ import Darwin
 
 class GameScene: SKScene, SKPhysicsContactDelegate  {
 
+    // カテゴリを用意しておく。
+    let wall_Category: UInt32 = 0x1 << 0
+    let toy_Category: UInt32 = 0x1 << 1
+    
     struct TOY_PROBABILITY
     {
         var probability: Int;
@@ -26,6 +30,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     var toy_probability_total: Int = 0;
     var toys: [Toy] = [];
     var touchDic: [UITouch:Toy] = [:];
+    
+    var toy_sounds: [String] = [
+        "dog",
+        "cat",
+        "chicken",
+        "crow",
+        "goat",
+        "sheep",
+        "uguis",
+        "sealion"
+    ]
     
     var gameFrame = CGRectZero;
     
@@ -68,6 +83,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         print("gameFrame:\(gameFrame)");
         
         self.physicsBody = SKPhysicsBody(edgeLoopFromRect: gameFrame);
+        self.physicsBody?.categoryBitMask = wall_Category;
+        self.physicsBody?.contactTestBitMask = toy_Category;
         
     }
     
@@ -95,12 +112,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             toy.xScale = b.xScale;
             toy.yScale = b.yScale;
             toy.isMove = b.isMove;
+            toy.sound = b.sound;
         }
         else {
             toy = Toy(imageNamed:lottery.name)
             toy.name = lottery.name;
             toy.life_time = lottery.life;
+            toy.sound = toy_sounds[Int(arc4random()) % toy_sounds.count];
         }
+        
         
         toy.physicsBody = SKPhysicsBody(circleOfRadius: toy.size.width*0.5);
         toy.physicsBody?.dynamic = true;
@@ -108,6 +128,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
         toy.physicsBody?.density = 0.1 + (CGFloat(arc4random() % 10) * 0.1);
         
+        toy.physicsBody?.categoryBitMask = toy_Category;
+        toy.physicsBody?.contactTestBitMask = wall_Category | toy_Category;
+
         return toy;
     }
     
@@ -127,6 +150,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             
             toys.append(toy);
             touchDic[touch] = toy;
+            
+            let seAction = SKAction.playSoundFileNamed(toy.sound, waitForCompletion: false);
+            self.runAction(seAction);
         }
     }
 
@@ -154,6 +180,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
                     
                     self.addChild(copy);
                     toys.append(copy);
+                    
+                    let seAction = SKAction.playSoundFileNamed(copy.sound, waitForCompletion: false);
+                    self.runAction(seAction);
                 }
 
             default: break;
@@ -209,6 +238,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             if toy.isMove == true {
                 toy.xScale = toy.xScale+0.01;
                 toy.yScale = toy.yScale+0.01;
+                
+                if toy.xScale > 6.0 && toy.yScale > 6.0 {
+                    toyExplosion(i);
+                }
             }
             else {
 
@@ -221,6 +254,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
                     toys.removeAtIndex(i);
                 }
             }
+        }
+    }
+    
+    func toyExplosion(index: Int) {
+        
+        let toy = toys[index];
+
+        let sparkPath = NSBundle.mainBundle().pathForResource("ToyExplosion", ofType: "sks");
+        let spark: SKEmitterNode = NSKeyedUnarchiver.unarchiveObjectWithFile(sparkPath!) as! SKEmitterNode;
+        spark.position = toy.position;
+        spark.xScale = 2.0;
+        spark.yScale = spark.xScale;
+        self.addChild(spark);
+        
+        let fadeout = SKAction.fadeAlphaTo(0, duration: 0.6);
+        let remove = SKAction.removeFromParent();
+        let sequence = SKAction.sequence([fadeout, remove]);
+        spark.runAction(sequence);
+        
+        let seAction = SKAction.playSoundFileNamed("explosion", waitForCompletion: false);
+        self.runAction(seAction);
+        
+        toy.removeFromParent();
+        toys.removeAtIndex(index);
+    }
+    
+    // 衝突したとき。
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+        var firstBody, secondBody: SKPhysicsBody
+        
+        // firstを赤、secondを緑とする。
+        if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+            firstBody = contact.bodyA
+            secondBody = contact.bodyB
+        } else {
+            firstBody = contact.bodyB
+            secondBody = contact.bodyA
+        }
+        
+        // toy同士の接触
+        if firstBody.categoryBitMask & toy_Category != 0 && secondBody.categoryBitMask & toy_Category != 0
+        {
+        }
+        // 壁とtoyの接触
+        else if (firstBody.categoryBitMask & wall_Category != 0 && secondBody.categoryBitMask & toy_Category != 0) ||
+                (firstBody.categoryBitMask & toy_Category != 0 && secondBody.categoryBitMask & wall_Category != 0)
+        {
         }
     }
 }

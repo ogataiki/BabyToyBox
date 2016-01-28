@@ -25,7 +25,7 @@ class Toy: SKSpriteNode
         
         let mode_probability: [MODE_PROBABILITY] = [
             MODE_PROBABILITY(probability: 100, mode:MODE.shot),
-            MODE_PROBABILITY(probability: 20, mode:MODE.copy),
+            MODE_PROBABILITY(probability: 40, mode:MODE.copy),
         ];
 
         var total: Int = 0;
@@ -49,5 +49,6 @@ class Toy: SKSpriteNode
     var stert_position = CGPointZero;
     var mode = MODE.shot;
 
+    var sound: String = "";
 
 }
