@@ -43,12 +43,15 @@ class Toy: SKSpriteNode
         return MODE.shot;
     }
     
+    var image_name: String = "";
     var life_time: NSTimeInterval = 0.0;
     var create_date: NSDate = NSDate();
     var isMove: Bool = false;
     var stert_position = CGPointZero;
     var mode = MODE.shot;
+    
+    var index: Int = 0;
 
     var sound: String = "";
-
+    
 }

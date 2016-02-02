@@ -28,7 +28,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         TOY_PROBABILITY(probability: 100, life_time: 3.0, img_name: "Toy12"),
     ];
     var toy_probability_total: Int = 0;
-    var toys: [Toy] = [];
+    var toyCounter: Int = 0;
+    var toys: [Int:Toy] = [:];
     var touchDic: [UITouch:Toy] = [:];
     
     var toy_sounds: [String] = [
@@ -106,8 +107,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
         let toy: Toy;
         if let b = base {
-            toy = Toy(imageNamed:b.name!)
-            toy.name = b.name;
+            toy = Toy(imageNamed:b.image_name)
+            toy.image_name = b.image_name;
             toy.life_time = b.life_time;
             toy.xScale = b.xScale;
             toy.yScale = b.yScale;
@@ -116,11 +117,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         }
         else {
             toy = Toy(imageNamed:lottery.name)
-            toy.name = lottery.name;
+            toy.image_name = lottery.name;
             toy.life_time = lottery.life;
             toy.sound = toy_sounds[Int(arc4random()) % toy_sounds.count];
         }
-        
+        toy.name = "toy";
         
         toy.physicsBody = SKPhysicsBody(circleOfRadius: toy.size.width*0.5);
         toy.physicsBody?.dynamic = true;
@@ -139,6 +140,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
         for touch in touches {
             let location = touch.locationInNode(self)
+            
+            let node = self.nodeAtPoint(location);
+            if node.name == "toy" {
+                let toy = node as! Toy;
+                toyExplosion(toy.index);
+                toy.removeFromParent();
+                toys.removeValueForKey(toy.index);
+                return;
+            }
+            
             // 指に隠れないように指のちょっと上に出す。
             let toyPos = CGPointMake(location.x, location.y + 70);
             let toy = createToy();
@@ -148,7 +159,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
             self.addChild(toy);
             
-            toys.append(toy);
+            toy.index = toyCounter;
+            toys[toy.index] = toy;
+            toyCounter++;
             touchDic[touch] = toy;
             
             let seAction = SKAction.playSoundFileNamed(toy.sound, waitForCompletion: false);
@@ -165,6 +178,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
             let toy = touchDic[touch];
             
+            if toy == nil {
+                touchDic.removeValueForKey(touch);
+                return;
+            }
+            
             switch toy!.mode {
             case .shot:
                 
@@ -179,7 +197,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
                     copy.position = toyPos;
                     
                     self.addChild(copy);
-                    toys.append(copy);
+                    
+                    copy.index = toyCounter;
+                    toys[copy.index] = copy;
+                    toyCounter++;
                     
                     let seAction = SKAction.playSoundFileNamed(copy.sound, waitForCompletion: false);
                     self.runAction(seAction);
@@ -196,6 +217,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             
             let toy = touchDic[touch];
             
+            if toy == nil {
+                touchDic.removeValueForKey(touch);
+                return;
+            }
+
             switch toy!.mode {
             case .shot:
                 
@@ -216,6 +242,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             }
             
             touchDic.removeValueForKey(touch);
+            
         }
     }
     
@@ -230,28 +257,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         updateFrame++;
         
         let now = NSDate();
-
-        for var i=toys.count-1; i>=0; i-- {
+        
+        let keys = toys.keys;
+        for key in keys {
             
-            let toy = toys[i];
+            let toy = toys[key]!;
             
             if toy.isMove == true {
                 toy.xScale = toy.xScale+0.01;
                 toy.yScale = toy.yScale+0.01;
                 
                 if toy.xScale > 6.0 && toy.yScale > 6.0 {
-                    toyExplosion(i);
+                    toyExplosion(key);
+                    
+                    toy.removeFromParent();
+                    toys.removeValueForKey(key);
                 }
             }
             else {
-
+                
                 let diff = toy.create_date.timeIntervalSinceDate(now);
                 let hh = (diff / 3600);
                 let mm = ((diff-hh) / 60);
                 let ss = diff - (hh*3600+mm*60);
                 if Int(ss) > 3 {
                     toy.removeFromParent();
-                    toys.removeAtIndex(i);
+                    toys.removeValueForKey(key);
                 }
             }
         }
@@ -259,7 +290,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     
     func toyExplosion(index: Int) {
         
-        let toy = toys[index];
+        let toy = toys[index]!;
 
         let sparkPath = NSBundle.mainBundle().pathForResource("ToyExplosion", ofType: "sks");
         let spark: SKEmitterNode = NSKeyedUnarchiver.unarchiveObjectWithFile(sparkPath!) as! SKEmitterNode;
@@ -275,9 +306,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
         let seAction = SKAction.playSoundFileNamed("explosion", waitForCompletion: false);
         self.runAction(seAction);
-        
-        toy.removeFromParent();
-        toys.removeAtIndex(index);
     }
     
     // 衝突したとき。

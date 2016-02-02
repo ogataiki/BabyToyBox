@@ -1,18 +1,37 @@
 import UIKit
 import SpriteKit
+import iAd
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, ADBannerViewDelegate {
 
     @IBOutlet weak var BackImageView: UIImageView!
     @IBOutlet weak var GameView: UIView!
     
+    @IBOutlet weak var GameStartButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // まずはタイトル表示
+        BackImageView.image = UIImage(named: "Bg\(1 + arc4random() % 9)");
+        
+        self.canDisplayBannerAds = true;
+        GameView.hidden = true;
+    }
+    
+    @IBAction func GameStartButton_TouchUpInside(sender: AnyObject) {
+        startGame();
+    }
+    
+    func startGame() {
+        
+        self.canDisplayBannerAds = false;
+        
+        GameStartButton.hidden = true;
+        GameView.hidden = false;
+        
         if let scene = GameScene(fileNamed:"GameScene") {
             
-            BackImageView.image = UIImage(named: "Bg\(1 + arc4random() % 9)");
-
             // Configure the view.
             let skView = GameView as! SKView
             skView.showsFPS = true
@@ -25,7 +44,7 @@ class GameViewController: UIViewController {
             skView.allowsTransparency = true;
             
             skView.multipleTouchEnabled = true;
-
+            
             /* Set the scale mode to scale to fit the window */
             scene.scaleMode = .AspectFill
             scene.size = skView.frame.size;
