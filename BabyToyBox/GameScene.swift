@@ -147,7 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
                 toyExplosion(toy.index);
                 toy.removeFromParent();
                 toys.removeValueForKey(toy.index);
-                return;
+                continue;
             }
             
             // 指に隠れないように指のちょっと上に出す。
