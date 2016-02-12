@@ -147,6 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
                 let toy = node as! Toy;
                 toy.mode = Toy.MODE.copy;
                 touchDic[touch] = toy;
+                toy.isMove = true;
                 continue;
             }
             
@@ -191,10 +192,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
             case .copy:
                 
+                toy!.position = location;
+
                 if 0 == updateFrame % 3 {
                     let copy = createToy(toy);
                     copy.position = toyPos;
                     
+                    copy.isMove = false;
+
                     self.addChild(copy);
                     
                     copy.index = toyCounter;
@@ -221,10 +226,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
                 return;
             }
 
+            toy!.isMove = false;
+            
             switch toy!.mode {
             case .shot:
-                
-                toy!.isMove = false;
                 
                 let s = toy!.stert_position;
                 let e = touch.locationInNode(self)
