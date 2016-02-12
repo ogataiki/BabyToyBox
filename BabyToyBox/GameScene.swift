@@ -143,10 +143,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             
             let node = self.nodeAtPoint(location);
             if node.name == "toy" {
+
                 let toy = node as! Toy;
-                toyExplosion(toy.index);
-                toy.removeFromParent();
-                toys.removeValueForKey(toy.index);
+                toy.mode = Toy.MODE.copy;
+                touchDic[touch] = toy;
                 continue;
             }
             
@@ -155,7 +155,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             let toy = createToy();
             toy.position = toyPos;
             toy.stert_position = location;
-            toy.mode = Toy.lotteryMode();
+            toy.mode = Toy.MODE.shot;
+            toy.isMove = true;
 
             self.addChild(toy);
             
@@ -186,8 +187,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             switch toy!.mode {
             case .shot:
                 
-                toy!.isMove = true;
-
                 toy!.position = toyPos;
 
             case .copy:
